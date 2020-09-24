@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:NyukuApp.ViewModels"
+             mc:Ignorable="d"
+             x:Class="NyukuApp.MainPage"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <vm:MainViewModel x:Name="vm"/>
+    </ContentPage.BindingContext>
+    <Grid RowDefinitions="*,*,*">
+        <Grid Grid.Row="0" ColumnDefinitions="Auto, *" VerticalOptions="Start" Padding="5,5,5,5">
+            <ImageButton Source="menu.png" BackgroundColor="BlueViolet" VerticalOptions="Center" 
+                             HeightRequest="24" WidthRequest="24" Clicked="MenuTapped"/>
+            <Label Grid.Column="1" Text="Home" TextColor="#2D2942" FontSize="20" FontAttributes="Bold" 
+                       VerticalOptions="Center" HorizontalOptions="Center"/>
+        </Grid>
+        <Grid x:Name="MenuGrid" IsVisible="False">
+            <BoxView x:Name="MenuOverlay" BackgroundColor="Gray" Opacity="0.35">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OverlayTapped"/>
+                </BoxView.GestureRecognizers>
+            </BoxView>
+            <Grid x:Name="MenuView" WidthRequest="260" BackgroundColor="#483635" 
+                  HorizontalOptions="Start" TranslationX="-260">
+                <Grid.Clip>
+                    <PathGeometry Figures="M0,0V511.043H140.714l86.992-116.012V0Z"/>
+                </Grid.Clip>
+                <StackLayout Margin="30,100" Spacing="20" BindableLayout.ItemsSource="{Binding MenuList}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Orientation="Horizontal" Spacing="20">
+                                <Grid Grid.Row="2" HorizontalOptions="Start" VerticalOptions="Start"
+                                      HeightRequest="46" WidthRequest="46">
+                                    <Ellipse WidthRequest="46" HeightRequest="46" Fill="White" Opacity="0.5"/>
+                                    <Image Source="{Binding Icon}" WidthRequest="22" HeightRequest="22"
+                                            HorizontalOptions="Center" VerticalOptions="Center" />
+                                </Grid>
+                                <Label Text="{Binding Name}" TextColor="White" FontSize="16" VerticalOptions="Center"
+                                        FontFamily="NormalFont"/>
+                            </StackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </Grid>
+        </Grid>
+    </Grid>
+
+</ContentPage>
